@@ -3,6 +3,8 @@ package com.murathnakts.service.impl;
 import com.murathnakts.dto.DtoUser;
 import com.murathnakts.dto.DtoUserIU;
 import com.murathnakts.entity.User;
+import com.murathnakts.handler.BaseException;
+import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.repository.UserRepository;
 import com.murathnakts.service.IAuthService;
 import org.springframework.stereotype.Service;
@@ -22,13 +24,14 @@ public class AuthServiceImpl implements IAuthService {
     public DtoUser getUserById(Long id) {
         DtoUser dtoUser = new DtoUser();
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            dtoUser.setUsername(user.getUsername());
-            dtoUser.setPassword(user.getPassword());
-            dtoUser.setId(user.getId());
-            dtoUser.setCreateTime(user.getCreateTime());
+        if (userOptional.isEmpty()) {
+            throw new BaseException(ResponseMessage.USER_NOT_FOUND);
         }
+        User user = userOptional.get();
+        dtoUser.setUsername(user.getUsername());
+        dtoUser.setPassword(user.getPassword());
+        dtoUser.setId(user.getId());
+        dtoUser.setCreateTime(user.getCreateTime());
         return dtoUser;
     }
 
