@@ -1,9 +1,9 @@
 package com.murathnakts.service;
 
-import com.murathnakts.dto.DtoUser;
-import com.murathnakts.dto.DtoUserIU;
+import com.murathnakts.dto.*;
 
 public interface IAuthService {
-    DtoUser getUserById(Long id);
     DtoUser register(DtoUserIU dtoUserIU);
+    DtoLogin login(DtoLoginIU request);
+    DtoRefreshToken refreshToken(DtoRefreshTokenIU request);
 }

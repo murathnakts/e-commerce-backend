@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoUser extends DtoBase{
-    private String username;
-    private String password;
+public class DtoRefreshToken {
+    private String accessToken;
 }
