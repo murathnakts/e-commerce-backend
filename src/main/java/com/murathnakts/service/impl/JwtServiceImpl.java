@@ -1,8 +1,9 @@
-package com.murathnakts.jwt;
+package com.murathnakts.service.impl;
 
 import com.murathnakts.entity.Users;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
+import com.murathnakts.service.IJwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,11 +19,27 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements IJwtService {
 
     public static final String SECRET_KEY = "6Zd3mcyAW7oVujbs56ifZ37LbQ0nTep/sd7lvg++UH0=";
 
+    @Override
+    public Key getKey() {
+        byte[] bytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(bytes);
+    }
+
+    @Override
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
     //TODO convert local date time
+    @Override
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
@@ -32,33 +49,24 @@ public class JwtService {
                 .compact();
     }
 
-    public boolean isTokenValid(String token) {
-        Date expireDate = exportToken(token, Claims::getExpiration);
-        return new Date().before(expireDate);
-    }
-
-    public String getUsernameByToken(String token) {
-        return exportToken(token, Claims::getSubject);
-    }
-
+    @Override
     public <E> E exportToken(String token, Function<Claims, E> claimsFunction) {
         Claims claims = getClaims(token);
         return claimsFunction.apply(claims);
     }
 
-    public Claims getClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    @Override
+    public boolean isTokenValid(String token) {
+        Date expireDate = exportToken(token, Claims::getExpiration);
+        return new Date().before(expireDate);
     }
 
-    public Key getKey() {
-        byte[] bytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(bytes);
+    @Override
+    public String getUsernameByToken(String token) {
+        return exportToken(token, Claims::getSubject);
     }
 
+    @Override
     public Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof Users users) {

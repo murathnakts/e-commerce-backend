@@ -1,5 +1,6 @@
 package com.murathnakts.entity;
 
+import com.murathnakts.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +26,12 @@ public class Users extends BaseEntity implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of((GrantedAuthority) () -> role.name());
     }
 }

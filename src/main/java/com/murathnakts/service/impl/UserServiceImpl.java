@@ -5,6 +5,7 @@ import com.murathnakts.dto.DtoUserIU;
 import com.murathnakts.entity.Users;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
+import com.murathnakts.mapper.Mapper;
 import com.murathnakts.repository.UserRepository;
 import com.murathnakts.service.IUserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,17 +47,6 @@ public class UserServiceImpl implements IUserService {
         Users user = new Users();
         user.setUsername(dtoUserIU.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(dtoUserIU.getPassword()));
-        return toDtoUser(userRepository.save(user));
-    }
-
-     //TODO Mapper Class
-    private DtoUser toDtoUser (Users user) {
-        if (user == null) return null;
-        DtoUser dtoUser = new DtoUser();
-        dtoUser.setId(user.getId());
-        dtoUser.setCreateTime(user.getCreateTime());
-        dtoUser.setUsername(user.getUsername());
-        dtoUser.setPassword(user.getPassword());
-        return dtoUser;
+        return Mapper.toDtoUser(userRepository.save(user));
     }
 }

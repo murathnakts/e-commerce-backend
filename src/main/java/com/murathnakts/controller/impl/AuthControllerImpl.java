@@ -6,7 +6,6 @@ import com.murathnakts.handler.ApiResponse;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.service.IAuthService;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

@@ -5,8 +5,8 @@ import com.murathnakts.entity.RefreshToken;
 import com.murathnakts.entity.Users;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
-import com.murathnakts.jwt.JwtService;
 import com.murathnakts.service.IAuthService;
+import com.murathnakts.service.IJwtService;
 import com.murathnakts.service.IRefreshTokenService;
 import com.murathnakts.service.IUserService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +18,12 @@ public class AuthServiceImpl implements IAuthService {
 
     private final IUserService userService;
     private final IRefreshTokenService refreshTokenService;
-    private final JwtService jwtService;
+    private final IJwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthServiceImpl(IUserService userService,
                            AuthenticationManager authenticationManager,
-                           JwtService jwtService,
+                           IJwtService jwtService,
                            IRefreshTokenService refreshTokenService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
