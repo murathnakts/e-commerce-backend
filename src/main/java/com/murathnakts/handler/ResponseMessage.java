@@ -15,7 +15,7 @@ public enum ResponseMessage {
     USER_CREATED(HttpStatus.CREATED, "Kullanıcı başarıyla kayıt edildi."),
 
     //FAILURE
-    USERNAME_OR_PASSWORD_INVALID(HttpStatus.UNAUTHORIZED, "Kullanıcı Adı veya Şifre Yanlış."),
+    EMAIL_OR_PASSWORD_INVALID(HttpStatus.UNAUTHORIZED, "E-mail veya Şifre Yanlış."),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "Token süresi dolmuş."),
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "Token geçersiz."),
     UNAUTHORIZED_USER(HttpStatus.UNAUTHORIZED, "Kullanıcı yetkisi yok."),

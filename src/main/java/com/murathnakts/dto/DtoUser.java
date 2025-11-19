@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DtoUser extends DtoBase{
-    private String username;
-    private String password;
+    private String email;
     private RoleType role;
 }

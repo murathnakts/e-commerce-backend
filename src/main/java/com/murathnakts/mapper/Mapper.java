@@ -13,7 +13,7 @@ public class Mapper {
         DtoUser dtoUser = new DtoUser();
         dtoUser.setId(user.getId());
         dtoUser.setCreateTime(user.getCreateTime());
-        dtoUser.setUsername(user.getUsername());
+        dtoUser.setEmail(user.getEmail());
         dtoUser.setRole(user.getRole());
         return dtoUser;
     }

@@ -27,13 +27,13 @@ public class AuthControllerImpl implements IAuthController {
 
     @PostMapping("/login")
     @Override
-    public ApiResponse<DtoLogin> login(@Valid @RequestBody DtoLoginIU request) {
-        return ApiResponse.success(authService.login(request), ResponseMessage.LOGIN_SUCCESS);
+    public ApiResponse<DtoLogin> login(@Valid @RequestBody DtoLoginIU dtoLoginIU) {
+        return ApiResponse.success(authService.login(dtoLoginIU), ResponseMessage.LOGIN_SUCCESS);
     }
 
     @PostMapping("/refresh-token")
     @Override
-    public ApiResponse<DtoRefreshToken> refreshToken(@Valid @RequestBody DtoRefreshTokenIU request) {
-        return ApiResponse.success(authService.refreshToken(request), ResponseMessage.TOKEN_REFRESHED);
+    public ApiResponse<DtoRefreshToken> refreshToken(@Valid @RequestBody DtoRefreshTokenIU dtoRefreshTokenIU) {
+        return ApiResponse.success(authService.refreshToken(dtoRefreshTokenIU), ResponseMessage.TOKEN_REFRESHED);
     }
 }

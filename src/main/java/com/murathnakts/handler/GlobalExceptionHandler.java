@@ -15,6 +15,8 @@ public class GlobalExceptionHandler {
                 .body(ApiResponse.failure(responseMessage.name(), ex.getMessage()));
     }
 
+    //TODO add Validation Exception Handler
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleGeneralException(Exception ex){
         ResponseMessage responseMessage = ResponseMessage.INTERNAL_ERROR;

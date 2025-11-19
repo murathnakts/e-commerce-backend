@@ -1,15 +1,18 @@
 package com.murathnakts.dto;
 
 import com.murathnakts.enums.RoleType;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
 public class DtoUserIU {
     @NotBlank
-    private String username;
+    @Email
+    private String email;
     @NotBlank
     private String password;
-    @NotBlank
+    @NotNull
     private RoleType role;
 }

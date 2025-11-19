@@ -62,7 +62,7 @@ public class JwtServiceImpl implements IJwtService {
     }
 
     @Override
-    public String getUsernameByToken(String token) {
+    public String getEmailByToken(String token) {
         return exportToken(token, Claims::getSubject);
     }
 

@@ -20,8 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Users extends BaseEntity implements UserDetails {
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -33,5 +33,10 @@ public class Users extends BaseEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> role.name());
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

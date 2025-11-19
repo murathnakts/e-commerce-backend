@@ -4,15 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum RoleType {
-    CUSTOMER("1","CUSTOMER"),
-    SELLER("2","SELLER"),
-    ADMIN("3","ADMIN");
-
-    private final String id;
-    private final String role;
-
-    RoleType(String id, String role) {
-        this.id = id;
-        this.role = role;
-    }
+    ROLE_CUSTOMER,
+    ROLE_SELLER,
+    ROLE_ADMIN
 }

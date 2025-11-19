@@ -12,6 +12,6 @@ public interface IJwtService {
     String generateToken(UserDetails userDetails);
     <E> E exportToken(String token, Function<Claims, E> claimsFunction);
     boolean isTokenValid(String token);
-    String getUsernameByToken(String token);
+    String getEmailByToken(String token);
     Long getCurrentUserId();
 }
