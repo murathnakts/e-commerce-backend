@@ -11,8 +11,11 @@ public enum ResponseMessage {
 
     LOGIN_SUCCESS(HttpStatus.OK, "Giriş başarılı."),
     TOKEN_REFRESHED(HttpStatus.OK, "Token yenilendi."),
+    PRODUCT_UPDATED(HttpStatus.OK, "Ürün başarıyla güncellendi."),
+    PRODUCT_DELETED(HttpStatus.OK, "Ürün başarıyla silindi."),
 
     USER_CREATED(HttpStatus.CREATED, "Kullanıcı başarıyla kayıt edildi."),
+    PRODUCT_ADDED(HttpStatus.CREATED, "Ürün başarıyla eklendi."),
 
     //FAILURE
     EMAIL_OR_PASSWORD_INVALID(HttpStatus.UNAUTHORIZED, "E-mail veya Şifre Yanlış."),
@@ -24,6 +27,7 @@ public enum ResponseMessage {
     USER_ALREADY_ADDED(HttpStatus.CONFLICT, "Kullanıcı zaten ekli."),
 
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "Kullanıcı Bulunamadı."),
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Ürün Bulunamadı."),
 
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyiniz.");
 

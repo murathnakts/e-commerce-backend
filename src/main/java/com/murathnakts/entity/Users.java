@@ -30,6 +30,9 @@ public class Users extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleType role;
 
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
+    private List<Products> products;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of((GrantedAuthority) () -> role.name());
