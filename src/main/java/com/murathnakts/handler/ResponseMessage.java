@@ -37,6 +37,7 @@ public enum ResponseMessage {
 
     OTP_MAX_TRY_EXCEEDED(HttpStatus.FORBIDDEN, "Otp deneme hakkınız doldu. Lütfen yeni bir otp isteyin."),
 
+    MAIL_NOT_SEND(HttpStatus.INTERNAL_SERVER_ERROR, "Mail gönderimi başarısız oldu."),
     INTERNAL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Bir Sorun Oluştu. Lütfen daha sonra tekrar deneyiniz.");
 
     private final HttpStatus httpStatus;

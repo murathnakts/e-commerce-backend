@@ -4,6 +4,7 @@ import com.murathnakts.entity.Otp;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.repository.OtpRepository;
+import com.murathnakts.service.IEmailService;
 import com.murathnakts.service.IOtpService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,14 @@ import java.time.LocalDateTime;
 @Service
 public class OtpServiceImpl implements IOtpService {
 
+    private final IEmailService emailService;
     private final OtpRepository otpRepository;
     private final PasswordEncoder otpEncoder;
 
-    public OtpServiceImpl(OtpRepository otpRepository,
+    public OtpServiceImpl(IEmailService emailService,
+                          OtpRepository otpRepository,
                           PasswordEncoder otpEncoder) {
+        this.emailService = emailService;
         this.otpRepository = otpRepository;
         this.otpEncoder = otpEncoder;
     }
@@ -56,8 +60,7 @@ public class OtpServiceImpl implements IOtpService {
         deleteOtp(email);
         String otp = generateOtp();
         otpRepository.save(createOtp(email,otp));
-        //TODO emailService.send(email, otp);
-        System.out.println(otp); // for Test
+        emailService.send(email, otp);
     }
 
     @Override
