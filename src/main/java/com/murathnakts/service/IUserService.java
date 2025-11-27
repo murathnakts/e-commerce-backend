@@ -7,6 +7,7 @@ import com.murathnakts.entity.Users;
 public interface IUserService {
     Users findByEmail(String email);
     Users findById(Long id);
-    boolean isEmailTaken(String email);
+    Boolean isUserExists(String email);
     DtoUser createUser(DtoUserIU dtoUserIU);
+    void resetPassword(String email, String newPassword);
 }

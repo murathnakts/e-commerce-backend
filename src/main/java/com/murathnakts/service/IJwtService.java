@@ -8,10 +8,17 @@ import java.util.function.Function;
 
 public interface IJwtService {
     Key getKey();
+    Key getOtpKey();
     Claims getClaims(String token);
+    Claims getOtpClaims(String token);
     String generateToken(UserDetails userDetails);
+    String generateTokenOtp(String email);
     <E> E exportToken(String token, Function<Claims, E> claimsFunction);
-    boolean isTokenValid(String token);
+    <E> E exportOtpToken(String token, Function<Claims, E> claimsFunction);
+    Boolean isTokenValid(String token);
+    Boolean isOtpTokenValid(String token);
     String getEmailByToken(String token);
+    String getEmailByOtpToken(String token);
     Long getCurrentUserId();
+    String getCurrentUserEmailOtp();
 }

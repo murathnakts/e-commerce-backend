@@ -15,9 +15,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    public static final String REGISTER = "/register";
-    public static final String AUTHENTICATE = "/login";
-    public static final String REFRESH_TOKEN = "/refresh-token";
+    private static final String[] WHITE_LIST = {
+            "/register",
+            "/login",
+            "/refresh-token",
+            "/send-otp",
+            "/verify-otp"
+    };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthEntryPoint authEntryPoint;
@@ -32,7 +36,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(REGISTER, AUTHENTICATE, REFRESH_TOKEN).permitAll()
+                        .requestMatchers(WHITE_LIST).permitAll()
+                        .requestMatchers("/reset-password").hasAuthority("RESET")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

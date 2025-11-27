@@ -5,35 +5,36 @@ import com.murathnakts.entity.RefreshToken;
 import com.murathnakts.entity.Users;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
-import com.murathnakts.service.IAuthService;
-import com.murathnakts.service.IJwtService;
-import com.murathnakts.service.IRefreshTokenService;
-import com.murathnakts.service.IUserService;
+import com.murathnakts.service.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthServiceImpl implements IAuthService {
 
     private final IUserService userService;
     private final IRefreshTokenService refreshTokenService;
+    private final IOtpService otpService;
     private final IJwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthServiceImpl(IUserService userService,
                            AuthenticationManager authenticationManager,
                            IJwtService jwtService,
-                           IRefreshTokenService refreshTokenService) {
+                           IRefreshTokenService refreshTokenService,
+                           IOtpService otpService) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.refreshTokenService = refreshTokenService;
+        this.otpService = otpService;
     }
 
     @Override
     public DtoUser register(DtoUserIU dtoUserIU) {
-        if (userService.isEmailTaken(dtoUserIU.getEmail())) {
+        if (userService.isUserExists(dtoUserIU.getEmail())) {
             throw new BaseException(ResponseMessage.USER_ALREADY_REGISTERED);
         }
         return userService.createUser(dtoUserIU);
@@ -56,12 +57,35 @@ public class AuthServiceImpl implements IAuthService {
 
     @Override
     public DtoRefreshToken refreshToken(DtoRefreshTokenIU dtoRefreshTokenIU) {
-        RefreshToken refreshToken = refreshTokenService.findRefreshTokenOrThrow(dtoRefreshTokenIU.getRefreshToken());
+        RefreshToken refreshToken = refreshTokenService.findByRefreshToken(dtoRefreshTokenIU.getRefreshToken());
         if (!refreshTokenService.validateRefreshToken(refreshToken.getExpiredDate())) {
             throw new BaseException(ResponseMessage.TOKEN_EXPIRED);
         }
         Users user = refreshToken.getUser();
         String accessToken = jwtService.generateToken(user);
         return new DtoRefreshToken(accessToken);
+    }
+
+    @Override
+    public Boolean sendOtp(DtoSendOtpIU dtoSendOtpIU) {
+        if (userService.isUserExists(dtoSendOtpIU.getEmail())) {
+            otpService.sendOtp(dtoSendOtpIU.getEmail());
+        }
+        return true;
+    }
+
+    @Override
+    public DtoVerifyOtp verifyOtp(DtoVerifyOtpIU dtoVerifyOtpIU) {
+        if (otpService.verifyOtp(dtoVerifyOtpIU.getEmail(), dtoVerifyOtpIU.getCode())) {
+            return new DtoVerifyOtp(jwtService.generateTokenOtp(dtoVerifyOtpIU.getEmail()));
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Boolean resetPassword(DtoResetPasswordIU dtoResetPasswordIU) {
+        userService.resetPassword(jwtService.getCurrentUserEmailOtp(), dtoResetPasswordIU.getNewPassword());
+        return true;
     }
 }

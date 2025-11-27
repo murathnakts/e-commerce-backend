@@ -22,7 +22,7 @@ public class RefreshTokenServiceImpl implements IRefreshTokenService {
     }
 
     @Override
-    public RefreshToken findRefreshTokenOrThrow(String refreshToken) {
+    public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new BaseException(ResponseMessage.TOKEN_INVALID));
     }

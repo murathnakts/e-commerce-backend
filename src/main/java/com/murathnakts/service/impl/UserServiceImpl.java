@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     }
 
     @Override
-    public boolean isEmailTaken(String email) {
+    public Boolean isUserExists(String email) {
         return userRepository.existsByEmail(email);
     }
 
@@ -56,5 +56,12 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(dtoUserIU.getPassword()));
         user.setRole(dtoUserIU.getRole());
         return Mapper.toDtoUser(userRepository.save(user));
+    }
+
+    @Override
+    public void resetPassword(String email, String newPassword) {
+        Users user = findByEmail(email);
+        user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 }
