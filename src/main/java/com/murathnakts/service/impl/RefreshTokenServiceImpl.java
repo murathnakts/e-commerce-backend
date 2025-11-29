@@ -1,7 +1,7 @@
 package com.murathnakts.service.impl;
 
 import com.murathnakts.entity.RefreshToken;
-import com.murathnakts.entity.Users;
+import com.murathnakts.entity.User;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.repository.RefreshTokenRepository;
@@ -28,17 +28,23 @@ public class RefreshTokenServiceImpl implements IRefreshTokenService {
     }
 
     @Override
-    public boolean validateRefreshToken(LocalDateTime expiredDate) {
+    public Boolean validateRefreshToken(LocalDateTime expiredDate) {
         return LocalDateTime.now().isBefore(expiredDate);
     }
 
     @Override
     @Transactional
-    public RefreshToken createRefreshToken(Users user) {
+    public RefreshToken createRefreshToken(User user) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setExpiredDate(LocalDateTime.now().plusHours(4));
         refreshToken.setRefreshToken(UUID.randomUUID().toString());
         refreshToken.setUser(user);
         return refreshTokenRepository.save(refreshToken);
+    }
+
+    @Override
+    @Transactional
+    public void deleteRefreshToken(Long id) {
+        refreshTokenRepository.deleteByUserId(id);
     }
 }

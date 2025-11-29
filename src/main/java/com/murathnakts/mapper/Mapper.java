@@ -2,15 +2,15 @@ package com.murathnakts.mapper;
 
 import com.murathnakts.dto.DtoProduct;
 import com.murathnakts.dto.DtoUser;
-import com.murathnakts.entity.Products;
-import com.murathnakts.entity.Users;
+import com.murathnakts.entity.Product;
+import com.murathnakts.entity.User;
 
 import java.util.Collections;
 import java.util.List;
 
 public class Mapper {
 
-    public static DtoUser toDtoUser (Users user) {
+    public static DtoUser toDtoUser (User user) {
         if (user == null) return null;
         DtoUser dtoUser = new DtoUser();
         dtoUser.setId(user.getId());
@@ -20,12 +20,12 @@ public class Mapper {
         return dtoUser;
     }
 
-    public static List<DtoUser> toDtoUser (List<Users> users) {
+    public static List<DtoUser> toDtoUser (List<User> users) {
         if (users == null || users.isEmpty()) return Collections.emptyList();
         return users.stream().map(Mapper::toDtoUser).toList();
     }
 
-    public static DtoProduct toDtoProduct (Products product) {
+    public static DtoProduct toDtoProduct (Product product) {
         if (product == null) return null;
         DtoProduct dtoProduct = new DtoProduct();
         dtoProduct.setId(product.getId());
@@ -38,7 +38,7 @@ public class Mapper {
         return dtoProduct;
     }
 
-    public static List<DtoProduct> toDtoProduct (List<Products> products) {
+    public static List<DtoProduct> toDtoProduct (List<Product> products) {
         if (products == null || products.isEmpty()) return Collections.emptyList();
         return products.stream().map(Mapper::toDtoProduct).toList();
     }

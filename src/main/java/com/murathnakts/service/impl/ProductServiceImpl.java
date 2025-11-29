@@ -2,14 +2,14 @@ package com.murathnakts.service.impl;
 
 import com.murathnakts.dto.DtoProduct;
 import com.murathnakts.dto.DtoProductIU;
-import com.murathnakts.entity.Products;
+import com.murathnakts.entity.Product;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.mapper.Mapper;
 import com.murathnakts.repository.ProductRepository;
 import com.murathnakts.service.IJwtService;
 import com.murathnakts.service.IProductService;
-import com.murathnakts.service.IUserService;
+import com.murathnakts.service.ISellerService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,18 +21,18 @@ public class ProductServiceImpl implements IProductService {
     private final ProductRepository productRepository;
 
     private final IJwtService jwtService;
-    private final IUserService userService;
+    private final ISellerService sellerService;
 
     public ProductServiceImpl(ProductRepository productRepository,
                               IJwtService jwtService,
-                              IUserService userService) {
+                              ISellerService sellerService) {
         this.productRepository = productRepository;
         this.jwtService = jwtService;
-        this.userService = userService;
+        this.sellerService = sellerService;
     }
 
     @Override
-    public Products findById(Long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new BaseException(ResponseMessage.PRODUCT_NOT_FOUND));
     }
@@ -50,20 +50,20 @@ public class ProductServiceImpl implements IProductService {
     @Transactional
     @Override
     public DtoProduct createProduct(DtoProductIU dtoProductIU) {
-        Products product = new Products();
+        Product product = new Product();
         product.setName(dtoProductIU.getName());
         product.setDescription(dtoProductIU.getDescription());
         product.setStock(dtoProductIU.getStock());
         product.setCategory(dtoProductIU.getCategory());
         product.setPrice(dtoProductIU.getPrice());
-        product.setSeller(userService.findById(jwtService.getCurrentUserId()));
+        product.setSeller(sellerService.findById(jwtService.getCurrentUserId()));
         return Mapper.toDtoProduct(productRepository.save(product));
     }
 
     @Transactional
     @Override
     public DtoProduct updateProduct(Long id, DtoProductIU dtoProductIU) {
-        Products product = findById(id);
+        Product product = findById(id);
         product.setName(dtoProductIU.getName());
         product.setDescription(dtoProductIU.getDescription());
         product.setStock(dtoProductIU.getStock());
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Boolean deleteProduct(Long id) {
-        Products product = findById(id);
+        Product product = findById(id);
         productRepository.delete(product);
         return true;
     }

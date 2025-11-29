@@ -31,9 +31,10 @@ public enum ResponseMessage {
     USER_ALREADY_REGISTERED(HttpStatus.CONFLICT, "Kullanıcı zaten kayıtlı."),
     USER_ALREADY_ADDED(HttpStatus.CONFLICT, "Kullanıcı zaten ekli."),
 
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "Kullanıcı Bulunamadı."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "Kullanıcı bulunamadı."),
+    ROLE_NOT_FOUND(HttpStatus.NOT_FOUND, "Rol bulunamadı."),
     OTP_NOT_FOUND(HttpStatus.NOT_FOUND, "Otp bulunamadı."),
-    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Ürün Bulunamadı."),
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Ürün bulunamadı."),
 
     OTP_MAX_TRY_EXCEEDED(HttpStatus.FORBIDDEN, "Otp deneme hakkınız doldu. Lütfen yeni bir otp isteyin."),
 

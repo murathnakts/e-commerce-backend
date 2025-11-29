@@ -2,7 +2,7 @@ package com.murathnakts.service.impl;
 
 import com.murathnakts.dto.*;
 import com.murathnakts.entity.RefreshToken;
-import com.murathnakts.entity.Users;
+import com.murathnakts.entity.User;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.service.*;
@@ -46,8 +46,9 @@ public class AuthServiceImpl implements IAuthService {
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(dtoLoginIU.getEmail(), dtoLoginIU.getPassword());
             authenticationManager.authenticate(authenticationToken);
-            Users user = userService.findByEmail(dtoLoginIU.getEmail());
+            User user = userService.findByEmail(dtoLoginIU.getEmail());
             String accessToken = jwtService.generateToken(user);
+            refreshTokenService.deleteRefreshToken(user.getId());
             RefreshToken savedRefreshToken = refreshTokenService.createRefreshToken(user);
             return new DtoLogin(user.getId(), accessToken, savedRefreshToken.getRefreshToken(), savedRefreshToken.getExpiredDate());
         } catch (Exception e) {
@@ -61,7 +62,7 @@ public class AuthServiceImpl implements IAuthService {
         if (!refreshTokenService.validateRefreshToken(refreshToken.getExpiredDate())) {
             throw new BaseException(ResponseMessage.TOKEN_EXPIRED);
         }
-        Users user = refreshToken.getUser();
+        User user = refreshToken.getUser();
         String accessToken = jwtService.generateToken(user);
         return new DtoRefreshToken(accessToken);
     }

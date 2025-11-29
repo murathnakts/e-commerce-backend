@@ -1,13 +1,13 @@
 package com.murathnakts.repository;
 
-import com.murathnakts.entity.Users;
+import com.murathnakts.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long> {
-    Optional<Users> findByEmail(String email);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
     Boolean existsByEmail(String email);
 }

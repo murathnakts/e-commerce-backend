@@ -1,6 +1,6 @@
 package com.murathnakts.service.impl;
 
-import com.murathnakts.entity.Users;
+import com.murathnakts.entity.User;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.service.IJwtService;
@@ -121,8 +121,8 @@ public class JwtServiceImpl implements IJwtService {
     @Override
     public Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof Users users) {
-            return users.getId();
+        if (authentication != null && authentication.getPrincipal() instanceof User user) {
+            return user.getId();
         }
         throw new BaseException(ResponseMessage.UNAUTHORIZED_USER);
     }

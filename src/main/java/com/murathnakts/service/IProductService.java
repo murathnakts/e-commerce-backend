@@ -2,12 +2,12 @@ package com.murathnakts.service;
 
 import com.murathnakts.dto.DtoProduct;
 import com.murathnakts.dto.DtoProductIU;
-import com.murathnakts.entity.Products;
+import com.murathnakts.entity.Product;
 
 import java.util.List;
 
 public interface IProductService {
-    Products findById(Long id);
+    Product findById(Long id);
     List<DtoProduct> getAllProducts();
     DtoProduct getProductById(Long id);
     DtoProduct createProduct(DtoProductIU dtoProductIU);

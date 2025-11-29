@@ -9,12 +9,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Products extends BaseEntity {
+public class Product extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -32,6 +32,6 @@ public class Products extends BaseEntity {
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Users seller;
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 }
