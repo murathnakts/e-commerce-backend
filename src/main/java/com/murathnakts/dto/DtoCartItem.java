@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoProduct extends DtoBase{
-    private String name;
-    private String description;
-    private Integer stock;
-    private String category;
-    private BigDecimal amount;
+public class DtoCartItem {
+    private Long productId;
+    private String productName;
+    private BigDecimal productAmount;
+    private Integer count;
+    private BigDecimal itemAmount;
 }

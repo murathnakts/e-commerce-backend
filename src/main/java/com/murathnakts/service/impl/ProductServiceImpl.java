@@ -55,7 +55,7 @@ public class ProductServiceImpl implements IProductService {
         product.setDescription(dtoProductIU.getDescription());
         product.setStock(dtoProductIU.getStock());
         product.setCategory(dtoProductIU.getCategory());
-        product.setPrice(dtoProductIU.getPrice());
+        product.setAmount(dtoProductIU.getAmount());
         product.setSeller(sellerService.findById(jwtService.getCurrentUserId()));
         return Mapper.toDtoProduct(productRepository.save(product));
     }
@@ -68,10 +68,11 @@ public class ProductServiceImpl implements IProductService {
         product.setDescription(dtoProductIU.getDescription());
         product.setStock(dtoProductIU.getStock());
         product.setCategory(dtoProductIU.getCategory());
-        product.setPrice(dtoProductIU.getPrice());
+        product.setAmount(dtoProductIU.getAmount());
         return Mapper.toDtoProduct(product);
     }
 
+    @Transactional
     @Override
     public Boolean deleteProduct(Long id) {
         Product product = findById(id);

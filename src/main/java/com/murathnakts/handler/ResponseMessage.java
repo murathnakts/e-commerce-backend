@@ -31,10 +31,13 @@ public enum ResponseMessage {
     USER_ALREADY_REGISTERED(HttpStatus.CONFLICT, "Kullanıcı zaten kayıtlı."),
     USER_ALREADY_ADDED(HttpStatus.CONFLICT, "Kullanıcı zaten ekli."),
 
+    STOCK_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "Yeterli stok bulunmamaktadır."),
+
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "Kullanıcı bulunamadı."),
     ROLE_NOT_FOUND(HttpStatus.NOT_FOUND, "Rol bulunamadı."),
     OTP_NOT_FOUND(HttpStatus.NOT_FOUND, "Otp bulunamadı."),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Ürün bulunamadı."),
+    CART_NOT_FOUND(HttpStatus.NOT_FOUND, "Sepet bulunamadı."),
 
     OTP_MAX_TRY_EXCEEDED(HttpStatus.FORBIDDEN, "Otp deneme hakkınız doldu. Lütfen yeni bir otp isteyin."),
 

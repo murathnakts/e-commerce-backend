@@ -20,7 +20,7 @@ public class Cart extends BaseEntity {
     @Column(name = "total_amount")
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 
     @OneToOne(fetch = FetchType.LAZY)

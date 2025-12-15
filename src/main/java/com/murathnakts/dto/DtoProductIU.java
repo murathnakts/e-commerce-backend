@@ -21,5 +21,5 @@ public class DtoProductIU {
     private String category;
     @NotNull
     @DecimalMin(value = "0.0")
-    private BigDecimal price;
+    private BigDecimal amount;
 }

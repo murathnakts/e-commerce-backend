@@ -1,23 +1,20 @@
 package com.murathnakts.service.impl;
 
 import com.murathnakts.dto.DtoUserIU;
+import com.murathnakts.entity.Cart;
 import com.murathnakts.entity.Customer;
 import com.murathnakts.handler.BaseException;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.repository.CustomerRepository;
-import com.murathnakts.service.ICartService;
 import com.murathnakts.service.ICustomerService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
-    private final ICartService cartService;
     private final CustomerRepository customerRepository;
 
-    public CustomerServiceImpl(ICartService cartService,
-                               CustomerRepository customerRepository) {
-        this.cartService = cartService;
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
@@ -36,10 +33,12 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     public Customer createCustomer(DtoUserIU dtoUserIU) {
         Customer customer = new Customer();
+        Cart cart = new Cart();
         customer.setEmail(dtoUserIU.getEmail());
         customer.setPassword(dtoUserIU.getPassword());
         customer.setRole(dtoUserIU.getRole());
-        customer.setCart(cartService.createCart(customer));
+        cart.setCustomer(customer);
+        customer.setCart(cart);
         return customerRepository.save(customer);
     }
 }

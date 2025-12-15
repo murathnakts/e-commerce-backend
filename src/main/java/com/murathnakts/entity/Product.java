@@ -28,8 +28,8 @@ public class Product extends BaseEntity {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "amount")
+    private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")

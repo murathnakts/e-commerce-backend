@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoProduct extends DtoBase{
-    private String name;
-    private String description;
-    private Integer stock;
-    private String category;
-    private BigDecimal amount;
+public class DtoCart{
+    private List<DtoCartItem> cartItems;
+    private BigDecimal totalAmount;
 }
