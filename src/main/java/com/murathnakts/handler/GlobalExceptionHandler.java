@@ -16,6 +16,7 @@ public class GlobalExceptionHandler {
     }
 
     //TODO add Validation Exception Handler
+    //TODO add accessDenied Exception Handler
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleGeneralException(Exception ex){

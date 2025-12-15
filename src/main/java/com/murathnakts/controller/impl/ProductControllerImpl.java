@@ -7,6 +7,7 @@ import com.murathnakts.handler.ApiResponse;
 import com.murathnakts.handler.ResponseMessage;
 import com.murathnakts.service.IProductService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductControllerImpl implements IProductController {
 
     //TODO add Pagination, Filter and Sort
 
-    @GetMapping()
+    @GetMapping
     @Override
     public ApiResponse<List<DtoProduct>> getAllProducts() {
         return ApiResponse.success(productService.getAllProducts(), ResponseMessage.SUCCESS);
@@ -35,13 +36,15 @@ public class ProductControllerImpl implements IProductController {
         return ApiResponse.success(productService.getProductById(id), ResponseMessage.SUCCESS);
     }
 
-    @PostMapping()
+    @PostMapping
+    @PreAuthorize("hasAnyRole('SELLER')")
     @Override
     public ApiResponse<DtoProduct> addProduct(@Valid @RequestBody DtoProductIU dtoProduct) {
         return ApiResponse.success(productService.createProduct(dtoProduct), ResponseMessage.PRODUCT_ADDED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('SELLER') and @ProductSecurityService.isProductOwner(#id)")
     @Override
     public ApiResponse<DtoProduct> updateProduct(@PathVariable Long id,
                                                  @Valid @RequestBody DtoProductIU dtoProduct) {
@@ -49,6 +52,7 @@ public class ProductControllerImpl implements IProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyRole('SELLER') and @ProductSecurityService.isProductOwner(#id)")
     @Override
     public ApiResponse<Boolean> deleteProduct(@PathVariable Long id) {
         return ApiResponse.success(productService.deleteProduct(id), ResponseMessage.PRODUCT_DELETED);
