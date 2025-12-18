@@ -19,6 +19,7 @@ public enum ResponseMessage {
 
     USER_CREATED(HttpStatus.CREATED, "Kullanıcı başarıyla kayıt edildi."),
     PRODUCT_ADDED(HttpStatus.CREATED, "Ürün başarıyla eklendi."),
+    ORDER_CREATED(HttpStatus.CREATED, "Sipariş Başarıyla Oluşturuldu."),
 
     //FAILURE
     EMAIL_OR_PASSWORD_INVALID(HttpStatus.UNAUTHORIZED, "E-mail veya Şifre Yanlış."),
@@ -32,12 +33,14 @@ public enum ResponseMessage {
     USER_ALREADY_ADDED(HttpStatus.CONFLICT, "Kullanıcı zaten ekli."),
 
     STOCK_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "Yeterli stok bulunmamaktadır."),
+    CART_IS_EMPTY(HttpStatus.BAD_REQUEST, "Sepet Boş."),
 
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "Kullanıcı bulunamadı."),
     ROLE_NOT_FOUND(HttpStatus.NOT_FOUND, "Rol bulunamadı."),
     OTP_NOT_FOUND(HttpStatus.NOT_FOUND, "Otp bulunamadı."),
     PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "Ürün bulunamadı."),
     CART_NOT_FOUND(HttpStatus.NOT_FOUND, "Sepet bulunamadı."),
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "Sipariş bulunamadı."),
 
     OTP_MAX_TRY_EXCEEDED(HttpStatus.FORBIDDEN, "Otp deneme hakkınız doldu. Lütfen yeni bir otp isteyin."),
 

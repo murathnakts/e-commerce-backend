@@ -19,7 +19,6 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 
     private final ProductRepository productRepository;
-
     private final IJwtService jwtService;
     private final ISellerService sellerService;
 
@@ -78,5 +77,17 @@ public class ProductServiceImpl implements IProductService {
         Product product = findById(id);
         productRepository.delete(product);
         return true;
+    }
+
+    @Override
+    public void decreaseStock(Product product, Integer count) {
+        product.setStock(product.getStock() - count);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void increaseStock(Product product, Integer count) {
+        product.setStock(product.getStock() + count);
+        productRepository.save(product);
     }
 }

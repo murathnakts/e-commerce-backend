@@ -10,6 +10,7 @@ public interface ICartService {
     Cart findByCustomerId(Long id);
     CartItem findItemInCart(Cart cart, Product product);
     void validateStock(Product product, CartItem cartItem, int count);
+    void validateStockForOrder(Product product, int count);
     void updateTotalAmount(Cart cart);
     DtoCart getCart();
     void addOrIncrease(Cart cart, Product product, int count);

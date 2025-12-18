@@ -56,6 +56,13 @@ public class CartServiceImpl implements ICartService {
     }
 
     @Override
+    public void validateStockForOrder(Product product, int count) {
+        if (count > product.getStock()) {
+            throw new BaseException(ResponseMessage.STOCK_NOT_ENOUGH);
+        }
+    }
+
+    @Override
     public void updateTotalAmount(Cart cart) {
         BigDecimal total = cart.getCartItems()
                 .stream()

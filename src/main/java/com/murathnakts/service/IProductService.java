@@ -13,4 +13,6 @@ public interface IProductService {
     DtoProduct createProduct(DtoProductIU dtoProductIU);
     DtoProduct updateProduct(Long id, DtoProductIU dtoProductIU);
     Boolean deleteProduct(Long id);
+    void decreaseStock(Product product, Integer count);
+    void increaseStock(Product product, Integer count);
 }

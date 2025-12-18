@@ -1,13 +1,7 @@
 package com.murathnakts.mapper;
 
-import com.murathnakts.dto.DtoCart;
-import com.murathnakts.dto.DtoCartItem;
-import com.murathnakts.dto.DtoProduct;
-import com.murathnakts.dto.DtoUser;
-import com.murathnakts.entity.Cart;
-import com.murathnakts.entity.CartItem;
-import com.murathnakts.entity.Product;
-import com.murathnakts.entity.User;
+import com.murathnakts.dto.*;
+import com.murathnakts.entity.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,5 +64,41 @@ public class Mapper {
         dtoCart.setCartItems(toDtoCartItem(cart.getCartItems()));
         dtoCart.setTotalAmount(cart.getTotalAmount());
         return dtoCart;
+    }
+
+    public static DtoOrderItem toDtoOrderItem (OrderItem orderItem) {
+        if (orderItem == null) return null;
+        DtoOrderItem dtoOrderItem = new DtoOrderItem();
+        dtoOrderItem.setCount(orderItem.getCount());
+        dtoOrderItem.setProductId(orderItem.getProductId());
+        dtoOrderItem.setProductName(orderItem.getProductName());
+        dtoOrderItem.setProductAmount(orderItem.getProductAmount());
+        dtoOrderItem.setItemAmount(orderItem.getItemAmount());
+        dtoOrderItem.setStatus(orderItem.getStatus());
+        dtoOrderItem.setSellerEmail(orderItem.getSeller().getEmail());
+        return dtoOrderItem;
+    }
+
+    public static List<DtoOrderItem> toDtoOrderItem (List<OrderItem> orderItems) {
+        if (orderItems == null || orderItems.isEmpty()) return Collections.emptyList();
+        return orderItems.stream().map(Mapper::toDtoOrderItem).toList();
+    }
+
+    public static DtoOrder toDtoOrder (Order order) {
+        if (order == null) return null;
+        DtoOrder dtoOrder = new DtoOrder();
+        dtoOrder.setId(order.getId());
+        dtoOrder.setCreateTime(order.getCreateTime());
+        dtoOrder.setOrderItems(toDtoOrderItem(order.getOrderItems()));
+        dtoOrder.setTotalAmount(order.getTotalAmount());
+        dtoOrder.setShippingAddress(order.getShippingAddress());
+        dtoOrder.setPaymentMethod(order.getPaymentMethod());
+        dtoOrder.setTransactionId(order.getTransactionId());
+        return dtoOrder;
+    }
+
+    public static List<DtoOrder> toDtoOrder (List<Order> orders) {
+        if (orders == null || orders.isEmpty()) return Collections.emptyList();
+        return orders.stream().map(Mapper::toDtoOrder).toList();
     }
 }
