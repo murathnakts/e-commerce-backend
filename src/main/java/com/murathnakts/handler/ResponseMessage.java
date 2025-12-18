@@ -32,6 +32,7 @@ public enum ResponseMessage {
     USER_ALREADY_REGISTERED(HttpStatus.CONFLICT, "Kullanıcı zaten kayıtlı."),
     USER_ALREADY_ADDED(HttpStatus.CONFLICT, "Kullanıcı zaten ekli."),
 
+    VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "İstek eksik gönderilmiş."),
     STOCK_NOT_ENOUGH(HttpStatus.BAD_REQUEST, "Yeterli stok bulunmamaktadır."),
     CART_IS_EMPTY(HttpStatus.BAD_REQUEST, "Sepet Boş."),
 
@@ -42,6 +43,7 @@ public enum ResponseMessage {
     CART_NOT_FOUND(HttpStatus.NOT_FOUND, "Sepet bulunamadı."),
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "Sipariş bulunamadı."),
 
+    ACCESS_DENIED(HttpStatus.FORBIDDEN, "Kullanıcı yetkisi yok."),
     OTP_MAX_TRY_EXCEEDED(HttpStatus.FORBIDDEN, "Otp deneme hakkınız doldu. Lütfen yeni bir otp isteyin."),
 
     MAIL_NOT_SEND(HttpStatus.INTERNAL_SERVER_ERROR, "Mail gönderimi başarısız oldu."),
