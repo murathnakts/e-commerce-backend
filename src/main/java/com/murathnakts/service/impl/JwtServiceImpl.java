@@ -9,6 +9,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,9 +23,16 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements IJwtService {
 
-    private static final String SECRET_KEY = "6Zd3mcyAW7oVujbs56ifZ37LbQ0nTep/sd7lvg++UH0=";
-    private static final String OTP_SECRET_KEY = "6Zd3mcyAW7oVujbs79ifZ56LbQ0nTep/sd7lvg++UH0=";
+    private final String SECRET_KEY;
+    private final String OTP_SECRET_KEY;
 
+    public JwtServiceImpl(
+            @Value("${jwt.secret-key}") String SECRET_KEY,
+            @Value("${otp.secret-key}") String OTP_SECRET_KEY
+    ) {
+        this.SECRET_KEY = SECRET_KEY;
+        this.OTP_SECRET_KEY = OTP_SECRET_KEY;
+    }
     @Override
     public Key getKey() {
         byte[] bytes = Decoders.BASE64.decode(SECRET_KEY);
